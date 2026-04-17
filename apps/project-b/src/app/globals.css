@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@source "../../../../packages/ui/src";
+
+@theme {
+  --color-brand-primary: #dc2626;
+  --color-brand-secondary: #b91c1c;
+  --color-brand-accent: #fee2e2;
+  --font-sans: 'Playfair Display', Georgia, serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #fafafa;
+  color: #1a1a1a;
+}
