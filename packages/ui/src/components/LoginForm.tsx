@@ -2,19 +2,15 @@
 
 import { useState, useTransition, useRef } from 'react';
 import type { Market } from '@product-portal/constants';
+import type { Credential } from '@product-portal/types';
 
 interface LoginFormProps {
   market: Market;
+  credentials: Credential[];
   action: (formData: FormData) => Promise<{ error?: string }>;
 }
 
-const DEMO_CREDENTIALS = [
-  { username: 'user-en', password: 'pass-en-123', market: 'en' as Market, role: 'user' },
-  { username: 'user-ca', password: 'pass-ca-123', market: 'ca' as Market, role: 'user' },
-  { username: 'admin', password: 'admin-123', market: null, role: 'admin' },
-] as const;
-
-export function LoginForm({ market, action }: LoginFormProps) {
+export function LoginForm({ market, credentials, action }: LoginFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -88,8 +84,8 @@ export function LoginForm({ market, action }: LoginFormProps) {
             </tr>
           </thead>
           <tbody>
-            {DEMO_CREDENTIALS.map((cred) => {
-              const isActive = cred.market === market;
+            {credentials.map((cred) => {
+              const isActive = cred.role !== 'admin' && cred.market === market;
               return (
                 <tr
                   key={cred.username}

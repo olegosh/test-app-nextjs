@@ -6,6 +6,8 @@ import { LoginForm } from '@product-portal/ui';
 import { isValidMarket } from '@product-portal/constants';
 import type { Market } from '@product-portal/constants';
 import { signSession, findCredential, SESSION_COOKIE_NAME, SESSION_MAX_AGE } from '../../../lib/auth';
+import credentials from '@product-portal/constants/credentials.json';
+import type { Credential } from '@product-portal/types';
 
 interface Props {
   params: Promise<{ market: string }>;
@@ -53,7 +55,7 @@ async function LoginContent({ market, searchParams }: { market: Market; searchPa
       <div className="w-full max-w-sm bg-white rounded-xl border border-gray-200 shadow-sm p-8">
         <h1 className="text-2xl font-bold mb-2 text-center text-gray-900">Sign in</h1>
         <p className="text-sm text-gray-500 text-center mb-6">ProjectB · {market.toUpperCase()} Market</p>
-        <LoginForm market={market} action={loginAction} />
+        <LoginForm market={market} credentials={credentials as Credential[]} action={loginAction} />
       </div>
     </main>
   );
