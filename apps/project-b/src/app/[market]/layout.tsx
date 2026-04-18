@@ -20,7 +20,7 @@ async function AuthNav({ params }: { params: Promise<{ market: string }> }) {
   const token = (await cookies()).get(SESSION_COOKIE_NAME)?.value;
   const session = token ? await verifySession(token) : null;
   const user = session
-    ? { displayName: session.displayName, username: session.username, role: session.role }
+    ? { displayName: session.displayName, username: session.username, role: session.role, market: session.market }
     : null;
 
   async function logoutAction() {

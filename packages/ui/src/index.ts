@@ -1,7 +1,10 @@
 export { BrandProvider } from './providers/BrandProvider';
 export { useBrand } from './context/BrandContext';
+export { CartProvider, useCart } from './context/CartContext';
 export { Button } from './components/Button';
 export { Navigation } from './components/Navigation';
+export { CartBadge } from './components/CartBadge';
+export { CartPage } from './components/CartPage';
 export { ProductCard } from './components/ProductCard';
 export { ProductGrid } from './components/ProductGrid';
 export { ProductDetail } from './components/ProductDetail';

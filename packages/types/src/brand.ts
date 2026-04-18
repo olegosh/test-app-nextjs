@@ -26,10 +26,23 @@ export interface ProductDetailConfig {
   memberSectionStyle: 'list' | 'cards';
 }
 
+export type CartLayout = 'list' | 'compact';
+
+export interface CartConfig {
+  layout: CartLayout;
+  checkoutLabel: string;
+}
+
+export interface FeatureFlags {
+  cartMarketSeparation: boolean;
+}
+
 export interface BrandConfig {
   id: BrandId;
   displayName: string;
   theme: BrandTheme;
   productCard: ProductCardConfig;
   productDetail: ProductDetailConfig;
+  cart: CartConfig;
+  featureFlags: FeatureFlags;
 }

@@ -21,4 +21,11 @@ export const projectBConfig: BrandConfig = {
     showBrandTag: true,
     memberSectionStyle: 'cards',
   },
+  cart: {
+    layout: 'compact',
+    checkoutLabel: 'Checkout Now',
+  },
+  featureFlags: {
+    cartMarketSeparation: true,
+  },
 };

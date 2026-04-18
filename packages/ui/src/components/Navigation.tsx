@@ -6,10 +6,11 @@ import { routes } from '@product-portal/constants';
 import type { Market } from '@product-portal/constants';
 import type { UserRole } from '@product-portal/types';
 import { MarketSelector } from './MarketSelector';
+import { CartBadge } from './CartBadge';
 
 interface NavigationProps {
   market: Market;
-  user?: { displayName: string; username: string; role?: UserRole } | null;
+  user?: { displayName: string; username: string; role?: UserRole; market?: string } | null;
   logoutAction?: () => Promise<void>;
 }
 
@@ -48,6 +49,7 @@ export function Navigation({ market, user, logoutAction }: NavigationProps) {
       >
         Products
       </Link>
+      <CartBadge market={market} userMarket={user?.market} isAdmin={user?.role === 'admin'} />
       {user?.role === 'admin' && (
         <Link
           href={routes.admin(market)}

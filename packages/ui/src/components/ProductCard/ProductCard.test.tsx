@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ProductCard } from './ProductCard';
 import { BrandProvider } from '../../providers/BrandProvider';
+import { CartProvider } from '../../context/CartContext';
 import type { BrandConfig, Product } from '@product-portal/types';
 
 jest.mock('next/image', () => ({
@@ -51,6 +52,13 @@ const projectAConfig: BrandConfig = {
     showBrandTag: false,
     memberSectionStyle: 'list',
   },
+  cart: {
+    layout: 'list',
+    checkoutLabel: 'Proceed to Checkout',
+  },
+  featureFlags: {
+    cartMarketSeparation: false,
+  },
 };
 
 const projectBConfig: BrandConfig = {
@@ -70,6 +78,13 @@ const projectBConfig: BrandConfig = {
     showBrandTag: true,
     memberSectionStyle: 'cards',
   },
+  cart: {
+    layout: 'compact',
+    checkoutLabel: 'Checkout Now',
+  },
+  featureFlags: {
+    cartMarketSeparation: true,
+  },
 };
 
 const mockOnRequestAuth = jest.fn();
@@ -77,10 +92,16 @@ const mockOnRequestAuth = jest.fn();
 function renderWithBrand(config: BrandConfig, isAuthenticated = false) {
   return render(
     <BrandProvider config={config}>
-      <ProductCard product={mockProduct} market="en" isAuthenticated={isAuthenticated} onRequestAuth={mockOnRequestAuth} />
+      <CartProvider>
+        <ProductCard product={mockProduct} market="en" isAuthenticated={isAuthenticated} onRequestAuth={mockOnRequestAuth} />
+      </CartProvider>
     </BrandProvider>,
   );
 }
+
+beforeEach(() => {
+  localStorage.clear();
+});
 
 describe('ProductCard', () => {
   describe('ProjectA — vertical layout, green button, no category tag', () => {
@@ -110,12 +131,12 @@ describe('ProductCard', () => {
       expect(screen.getByRole('button', { name: /details/i })).toBeInTheDocument();
     });
 
-    it('shows "Hello from Green Project" alert on Add to Cart click', () => {
-      const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => undefined);
+    it('logs message to console on Add to Cart click', () => {
+      const logSpy = jest.spyOn(console, 'log').mockImplementation(() => undefined);
       renderWithBrand(projectAConfig);
       fireEvent.click(screen.getByRole('button', { name: /add to cart/i }));
-      expect(alertSpy).toHaveBeenCalledWith('Hello from Green Project');
-      alertSpy.mockRestore();
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('EN product'));
+      logSpy.mockRestore();
     });
 
     it('applies green background to Add to Cart button', () => {
@@ -149,12 +170,12 @@ describe('ProductCard', () => {
       expect(screen.getByText('electronics')).toBeInTheDocument();
     });
 
-    it('shows "Hello from Red Project" alert on Add to Cart click', () => {
-      const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => undefined);
+    it('logs message to console on Add to Cart click', () => {
+      const logSpy = jest.spyOn(console, 'log').mockImplementation(() => undefined);
       renderWithBrand(projectBConfig);
       fireEvent.click(screen.getByRole('button', { name: /add to cart/i }));
-      expect(alertSpy).toHaveBeenCalledWith('Hello from Red Project');
-      alertSpy.mockRestore();
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('EN product'));
+      logSpy.mockRestore();
     });
 
     it('applies red background to Add to Cart button', () => {

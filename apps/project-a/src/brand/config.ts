@@ -21,4 +21,11 @@ export const projectAConfig: BrandConfig = {
     showBrandTag: false,
     memberSectionStyle: 'list',
   },
+  cart: {
+    layout: 'list',
+    checkoutLabel: 'Proceed to Checkout',
+  },
+  featureFlags: {
+    cartMarketSeparation: false,
+  },
 };

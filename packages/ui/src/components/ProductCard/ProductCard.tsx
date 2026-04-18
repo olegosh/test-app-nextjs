@@ -6,6 +6,7 @@ import type { Product } from '@product-portal/types';
 import type { Market } from '@product-portal/constants';
 import { routes } from '@product-portal/constants';
 import { useBrand } from '../../context/BrandContext';
+import { useCart } from '../../context/CartContext';
 import { Button } from '../Button';
 
 interface ProductCardProps {
@@ -16,10 +17,20 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, market, isAuthenticated, onRequestAuth }: ProductCardProps) {
-  const { productCard: cfg } = useBrand();
+  const { productCard: cfg, id: brandId } = useBrand();
+  const { addItem, getItemQuantity } = useCart();
+
+  const quantityInCart = getItemQuantity(product.id);
 
   function handleAddToCart() {
-    alert(cfg.addToCartMessage);
+    console.log(`${market.toUpperCase()} product "${product.title}" has been added in ${brandId}`);
+    addItem({
+      productId: product.id,
+      title: product.title,
+      price: product.price,
+      thumbnail: product.thumbnail,
+      market,
+    });
   }
 
   const titleBlock = (
@@ -57,10 +68,14 @@ export function ProductCard({ product, market, isAuthenticated, onRequestAuth }:
     </button>
   );
 
+  const addToCartButton = (
+    <Button label={quantityInCart > 0 ? `Add (${quantityInCart})` : 'Add to Cart'} onClick={handleAddToCart} />
+  );
+
   const actionBlock = (
     <div className="flex items-center gap-2">
       {detailsButton}
-      <Button label="Add to Cart" onClick={handleAddToCart} />
+      {addToCartButton}
     </div>
   );
 

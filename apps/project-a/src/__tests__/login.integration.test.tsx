@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { LoginForm } from '../../../../packages/ui/src/components/LoginForm';
@@ -17,10 +17,9 @@ describe('Login flow — integration', () => {
     await userEvent.type(screen.getByLabelText(/password/i), 'pass-en-123');
     await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
 
-    await waitFor(() => {
-      expect(mockAction).toHaveBeenCalledTimes(1);
-    });
+    await act(() => Promise.resolve());
 
+    expect(mockAction).toHaveBeenCalledTimes(1);
     const formData: FormData = mockAction.mock.calls[0][0] as FormData;
     expect(formData.get('username')).toBe('user-en');
     expect(formData.get('password')).toBe('pass-en-123');
@@ -33,6 +32,8 @@ describe('Login flow — integration', () => {
     await userEvent.type(screen.getByLabelText(/username/i), 'bad-user');
     await userEvent.type(screen.getByLabelText(/password/i), 'bad-pass');
     await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
+
+    await act(() => Promise.resolve());
 
     await waitFor(() => {
       expect(screen.getByRole('alert')).toHaveTextContent(
@@ -60,7 +61,9 @@ describe('Login flow — integration', () => {
       expect(screen.getByRole('button', { name: /signing in/i })).toBeDisabled();
     });
 
-    resolveAction({});
+    await act(async () => {
+      resolveAction({});
+    });
   });
 
   it('clears error state on a successful subsequent attempt', async () => {
@@ -75,9 +78,13 @@ describe('Login flow — integration', () => {
     await userEvent.type(screen.getByLabelText(/password/i), 'bad');
     await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
 
+    await act(() => Promise.resolve());
+
     await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
 
     await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
+
+    await act(() => Promise.resolve());
 
     await waitFor(() => {
       expect(mockAction).toHaveBeenCalledTimes(2);

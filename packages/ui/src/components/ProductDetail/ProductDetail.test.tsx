@@ -51,6 +51,13 @@ const projectAConfig: BrandConfig = {
     showBrandTag: false,
     memberSectionStyle: 'list',
   },
+  cart: {
+    layout: 'list',
+    checkoutLabel: 'Proceed to Checkout',
+  },
+  featureFlags: {
+    cartMarketSeparation: false,
+  },
 };
 
 const projectBConfig: BrandConfig = {
@@ -69,6 +76,13 @@ const projectBConfig: BrandConfig = {
     showCategoryTag: true,
     showBrandTag: true,
     memberSectionStyle: 'cards',
+  },
+  cart: {
+    layout: 'compact',
+    checkoutLabel: 'Checkout Now',
+  },
+  featureFlags: {
+    cartMarketSeparation: true,
   },
 };
 

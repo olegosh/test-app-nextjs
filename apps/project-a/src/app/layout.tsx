@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { BrandProvider } from '@product-portal/ui';
+import { BrandProvider, CartProvider } from '@product-portal/ui';
 import { projectAConfig } from '../brand/config';
 import './globals.css';
 
@@ -21,7 +21,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body>
-        <BrandProvider config={projectAConfig}>{children}</BrandProvider>
+        <BrandProvider config={projectAConfig}>
+          <CartProvider>{children}</CartProvider>
+        </BrandProvider>
       </body>
     </html>
   );
