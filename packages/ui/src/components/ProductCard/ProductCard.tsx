@@ -107,7 +107,7 @@ export function ProductCard({ product, market, isAuthenticated, onRequestAuth }:
   }
 
   return (
-    <article className="flex flex-row rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200">
+    <article className="flex flex-row rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200 h-full">
       <div style={{ position: 'relative', width: '160px', minHeight: '160px', flexShrink: 0 }}>
         <Image
           src={product.thumbnail}

@@ -44,6 +44,7 @@ const projectAConfig: BrandConfig = {
     showCategoryTag: false,
     buttonVariant: 'green',
     addToCartMessage: 'Hello from Green Project',
+    grid: { minCardWidth: '280px', gap: '1.5rem' },
   },
   productDetail: {
     layout: 'side-by-side',
@@ -70,6 +71,7 @@ const projectBConfig: BrandConfig = {
     showCategoryTag: true,
     buttonVariant: 'red',
     addToCartMessage: 'Hello from Red Project',
+    grid: { minCardWidth: '450px', gap: '1.5rem' },
   },
   productDetail: {
     layout: 'stacked',

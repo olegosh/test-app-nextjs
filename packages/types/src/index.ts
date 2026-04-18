@@ -3,6 +3,7 @@ export type {
   BrandId,
   ProductCardLayout,
   MenuPosition,
+  GridConfig,
   ProductCardConfig,
   ProductDetailLayout,
   ProductDetailConfig,

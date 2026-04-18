@@ -47,7 +47,7 @@ async function WelcomeContent({ params }: { params: Promise<{ market: string }> 
         href={routes.products(market)}
         className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-6 py-3 text-sm font-semibold text-white hover:bg-green-700 transition-colors"
       >
-        Browse products →
+        Browse products <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 4l4 4-4 4" /></svg>
       </Link>
     </main>
   );

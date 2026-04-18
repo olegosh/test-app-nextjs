@@ -18,9 +18,10 @@ export function CartPage({ market, userMarket, isAdmin }: CartPageProps) {
   const { state, removeItem, updateQuantity, clearCart } = useCart();
 
   // When cartMarketSeparation is enabled, filter items to user's market (admin sees all)
-  const visibleItems = featureFlags.cartMarketSeparation && userMarket && !isAdmin
-    ? state.items.filter((i) => i.market === userMarket)
-    : state.items;
+  const visibleItems =
+    featureFlags.cartMarketSeparation && userMarket && !isAdmin
+      ? state.items.filter((i) => i.market === userMarket)
+      : state.items;
 
   const totalItems = visibleItems.reduce((sum, i) => sum + i.quantity, 0);
   const totalPrice = visibleItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
@@ -44,7 +45,20 @@ export function CartPage({ market, userMarket, isAdmin }: CartPageProps) {
           className="inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold text-white transition-colors"
           style={{ backgroundColor: theme.primaryColor }}
         >
-          Browse products →
+          Browse products{' '}
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="inline"
+          >
+            <path d="M6 4l4 4-4 4" />
+          </svg>
         </Link>
       </main>
     );
@@ -57,7 +71,9 @@ export function CartPage({ market, userMarket, isAdmin }: CartPageProps) {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">Cart</h1>
-          <p className="text-sm text-gray-500 mt-1">{totalItems} item{totalItems !== 1 ? 's' : ''}</p>
+          <p className="text-sm text-gray-500 mt-1">
+            {totalItems} item{totalItems !== 1 ? 's' : ''}
+          </p>
         </div>
         <button
           onClick={() => clearCart()}
@@ -73,7 +89,14 @@ export function CartPage({ market, userMarket, isAdmin }: CartPageProps) {
             key={item.productId}
             className={`flex items-center gap-4 rounded-xl border border-gray-200 bg-white ${isCompact ? 'p-3' : 'p-4'}`}
           >
-            <div style={{ position: 'relative', width: isCompact ? '48px' : '72px', height: isCompact ? '48px' : '72px', flexShrink: 0 }}>
+            <div
+              style={{
+                position: 'relative',
+                width: isCompact ? '48px' : '72px',
+                height: isCompact ? '48px' : '72px',
+                flexShrink: 0,
+              }}
+            >
               <Image
                 src={item.thumbnail}
                 alt={item.title}
@@ -85,7 +108,9 @@ export function CartPage({ market, userMarket, isAdmin }: CartPageProps) {
             </div>
 
             <div className="flex-1 min-w-0">
-              <h3 className={`font-medium text-gray-900 truncate ${isCompact ? 'text-xs' : 'text-sm'}`}>
+              <h3
+                className={`font-medium text-gray-900 truncate ${isCompact ? 'text-xs' : 'text-sm'}`}
+              >
                 {item.title}
               </h3>
               <p className={`text-gray-500 ${isCompact ? 'text-xs' : 'text-sm'}`}>
@@ -111,7 +136,9 @@ export function CartPage({ market, userMarket, isAdmin }: CartPageProps) {
               </button>
             </div>
 
-            <p className={`font-bold text-gray-900 w-20 text-right ${isCompact ? 'text-sm' : 'text-base'}`}>
+            <p
+              className={`font-bold text-gray-900 w-20 text-right ${isCompact ? 'text-sm' : 'text-base'}`}
+            >
               ${(item.price * item.quantity).toFixed(2)}
             </p>
 
@@ -128,7 +155,9 @@ export function CartPage({ market, userMarket, isAdmin }: CartPageProps) {
 
       <div className="mt-8 rounded-xl border border-gray-200 bg-white p-6">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-sm text-gray-500">Total ({totalItems} item{totalItems !== 1 ? 's' : ''})</span>
+          <span className="text-sm text-gray-500">
+            Total ({totalItems} item{totalItems !== 1 ? 's' : ''})
+          </span>
           <span className="text-2xl font-bold text-gray-900">${totalPrice.toFixed(2)}</span>
         </div>
         <div className="flex gap-3">

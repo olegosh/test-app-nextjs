@@ -7,7 +7,7 @@ import type { Market } from '@product-portal/constants';
 import { SESSION_COOKIE_NAME } from '@product-portal/constants';
 import { verifySession } from '../../../lib/auth';
 import { fetchProducts, shuffleFirst } from '../../../lib/products';
-import { ProductGrid } from '@product-portal/ui';
+import { ProductGrid, ScrollToTop } from '@product-portal/ui';
 
 interface Props {
   params: Promise<{ market: string }>;
@@ -77,6 +77,7 @@ export default function ProductsPage({ params }: Props) {
       <Suspense fallback={<ProductsSkeleton />}>
         <ProductsPageInner params={params} />
       </Suspense>
+      <ScrollToTop />
     </main>
   );
 }

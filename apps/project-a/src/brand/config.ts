@@ -14,6 +14,7 @@ export const projectAConfig: BrandConfig = {
     showCategoryTag: false,
     buttonVariant: 'green',
     addToCartMessage: 'Hello from Green Project',
+    grid: { minCardWidth: '280px', gap: '1.5rem' },
   },
   productDetail: {
     layout: 'side-by-side',

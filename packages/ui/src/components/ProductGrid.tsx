@@ -6,6 +6,7 @@ import type { Market } from '@product-portal/constants';
 import { routes } from '@product-portal/constants';
 import { ProductCard } from './ProductCard';
 import { AuthModal } from './AuthModal';
+import { useBrand } from '../context/BrandContext';
 
 interface ProductGridProps {
   products: Product[];
@@ -15,10 +16,18 @@ interface ProductGridProps {
 
 export function ProductGrid({ products, market, isAuthenticated }: ProductGridProps) {
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const { productCard } = useBrand();
+  const { minCardWidth, gap } = productCard.grid;
 
   return (
     <>
-      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <ul
+        className="grid"
+        style={{
+          gridTemplateColumns: `repeat(auto-fill, minmax(${minCardWidth}, 1fr))`,
+          gap,
+        }}
+      >
         {products.map((product) => (
           <li key={product.id}>
             <ProductCard

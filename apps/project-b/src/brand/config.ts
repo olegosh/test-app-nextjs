@@ -14,6 +14,7 @@ export const projectBConfig: BrandConfig = {
     showCategoryTag: true,
     buttonVariant: 'red',
     addToCartMessage: 'Hello from Red Project',
+    grid: { minCardWidth: '450px', gap: '1.5rem' },
   },
   productDetail: {
     layout: 'stacked',

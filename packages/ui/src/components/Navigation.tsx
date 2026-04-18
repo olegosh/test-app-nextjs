@@ -15,7 +15,7 @@ interface NavigationProps {
 }
 
 const menuPositionClasses = {
-  top: 'flex flex-row items-center gap-8 w-full px-8 py-4 border-b border-gray-200 bg-white shadow-sm',
+  top: 'flex flex-row items-center gap-8 w-full px-8 py-4 border-b border-gray-200 bg-white shadow-sm sticky top-0 z-50',
   side: 'flex flex-col gap-3 w-50 h-screen sticky top-0 px-5 py-8 border-r border-gray-200 bg-white shadow-sm',
   bottom: 'flex flex-row items-center gap-8 w-full justify-center px-8 py-4 border-t border-gray-200 bg-white shadow-sm',
 } as const;
@@ -25,7 +25,7 @@ export function Navigation({ market, user, logoutAction }: NavigationProps) {
   const isSide = theme.menuPosition === 'side';
 
   return (
-    <nav className={menuPositionClasses[theme.menuPosition]}>
+    <nav className={menuPositionClasses[theme.menuPosition]} style={{ backgroundColor: '#ffffff' }}>
       <div className={`flex items-center gap-3 ${isSide ? '' : 'mr-auto'}`}>
         <Link
           href={routes.home(market)}

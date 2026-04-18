@@ -3,12 +3,18 @@ export type BrandId = 'project-a' | 'project-b';
 export type ProductCardLayout = 'vertical' | 'horizontal';
 export type MenuPosition = 'top' | 'side' | 'bottom';
 
+export interface GridConfig {
+  minCardWidth: string;
+  gap: string;
+}
+
 export interface ProductCardConfig {
   layout: ProductCardLayout;
   titlePosition: 'top-right' | 'bottom-left';
   showCategoryTag: boolean;
   buttonVariant: 'green' | 'red';
   addToCartMessage: string;
+  grid: GridConfig;
 }
 
 export interface BrandTheme {
