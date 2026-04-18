@@ -40,6 +40,8 @@ async function ProductDetailContent({ market, slug }: { market: Market; slug: st
       product={product}
       market={market}
       isAuthenticated={!!session}
+      userMarket={session?.market}
+      isAdmin={session?.role === 'admin'}
     />
   );
 }

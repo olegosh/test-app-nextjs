@@ -11,10 +11,45 @@ interface ProductDetailProps {
   product: Product;
   market: Market;
   isAuthenticated: boolean;
+  userMarket?: string | null | undefined;
+  isAdmin?: boolean | undefined;
 }
 
-export function ProductDetail({ product, market, isAuthenticated }: ProductDetailProps) {
+export function ProductDetail({ product, market, isAuthenticated, userMarket, isAdmin }: ProductDetailProps) {
   const { productDetail: cfg, theme } = useBrand();
+
+  // Market mismatch: user is authenticated but viewing another market's product
+  const hasMarketMismatch = isAuthenticated && !isAdmin && userMarket != null && userMarket !== market;
+
+  if (hasMarketMismatch) {
+    return (
+      <main className="max-w-lg mx-auto px-6 py-24">
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-8 text-center">
+          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-amber-50 text-amber-600 text-xl mx-auto mb-4">
+            🔒
+          </div>
+          <h1 className="text-lg font-semibold text-gray-900 mb-2">Market Restricted</h1>
+          <p className="text-sm text-gray-500 mb-6">
+            This product belongs to the {market.toUpperCase()} market. Please sign in with {market.toUpperCase()} market credentials to view this product&apos;s details.
+          </p>
+          <div className="flex gap-3 justify-center">
+            <Link
+              href={routes.products(userMarket as Market)}
+              className="rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            >
+              Back to Products
+            </Link>
+            <Link
+              href={routes.login(market)}
+              className="rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 transition-colors"
+            >
+              Sign in as {market.toUpperCase()} user
+            </Link>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   const backLink = (
     <Link

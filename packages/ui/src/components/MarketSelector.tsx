@@ -43,11 +43,18 @@ const marketConfig: Record<Market, { Flag: () => React.JSX.Element; label: strin
   ca: { Flag: FlagCA, label: 'CA' },
 };
 
+function isProductDetailPage(pathname: string): boolean {
+  const segments = pathname.split('/').filter(Boolean);
+  // matches /[market]/product/[slug]
+  return segments.length >= 3 && segments[1] === 'product';
+}
+
 export function MarketSelector({ market }: MarketSelectorProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const disabled = isProductDetailPage(pathname);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -68,6 +75,15 @@ export function MarketSelector({ market }: MarketSelectorProps) {
   }
 
   const current = marketConfig[market];
+
+  if (disabled) {
+    return (
+      <div className="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-50 px-2.5 py-1.5 text-xs font-medium text-gray-400">
+        <current.Flag />
+        <span>{current.label}</span>
+      </div>
+    );
+  }
 
   return (
     <div ref={ref} className="relative">
