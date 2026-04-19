@@ -1,7 +1,5 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { isValidMarket } from '@product-portal/constants';
 import { UsersTable, RecentPosts, QuotesWidget, LiveTodos } from '@product-portal/ui';
 
 export const metadata: Metadata = {
@@ -41,9 +39,9 @@ export default function AdminPage(_props: Props) {
       </div>
 
       <div className="mb-6 rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 text-xs font-medium text-indigo-800">
-        <strong>PPR:</strong> The page shell rendered instantly (static). Each section below streams independently
-        via <code className="bg-indigo-100 px-1 rounded">{'<Suspense>'}</code> with different cache strategies.
-        Check the server console for fetch timestamps.
+        <strong>PPR:</strong> The page shell rendered instantly (static). Each section below streams
+        independently via <code className="bg-indigo-100 px-1 rounded">{'<Suspense>'}</code> with
+        different cache strategies. Check the server console for fetch timestamps.
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
