@@ -1,0 +1,26 @@
+services:
+  project-a:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_NAME: project-a
+        APP_PORT: "3000"
+    ports:
+      - "3000:3000"
+    environment:
+      - JWT_SECRET=${JWT_SECRET:-change-me-to-a-random-secret-min-32-chars}
+      - NODE_ENV=production
+
+  project-b:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_NAME: project-b
+        APP_PORT: "3001"
+    ports:
+      - "3001:3001"
+    environment:
+      - JWT_SECRET=${JWT_SECRET:-change-me-to-a-random-secret-min-32-chars}
+      - NODE_ENV=production
