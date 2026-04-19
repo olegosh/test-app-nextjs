@@ -12,4 +12,5 @@ export { MarketSelector } from './components/MarketSelector';
 export { LoginForm } from './components/LoginForm';
 export { AuthModal } from './components/AuthModal';
 export { ScrollToTop } from './components/ScrollToTop';
+export { ReviewsSection } from './components/ReviewsSection';
 export { UsersTable, RecentPosts, QuotesWidget, LiveTodos } from './components/admin';

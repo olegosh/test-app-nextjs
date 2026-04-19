@@ -6,6 +6,7 @@ import type { Product } from '@product-portal/types';
 import type { Market } from '@product-portal/constants';
 import { routes } from '@product-portal/constants';
 import { useBrand } from '../../context/BrandContext';
+import { ReviewsSection } from '../ReviewsSection';
 
 interface ProductDetailProps {
   product: Product;
@@ -141,6 +142,7 @@ export function ProductDetail({ product, market, isAuthenticated, userMarket, is
             {memberListSection}
           </div>
         </div>
+        <ReviewsSection productId={product.id} />
       </main>
     );
   }
@@ -179,6 +181,7 @@ export function ProductDetail({ product, market, isAuthenticated, userMarket, is
         )}
       </div>
       {memberCardsSection}
+      <ReviewsSection productId={product.id} />
     </main>
   );
 }

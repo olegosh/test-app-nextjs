@@ -27,8 +27,6 @@ async function ProductsContent({ market }: { market: Market }) {
 
   return (
     <>
-      <p className="text-sm text-gray-500 mt-1 mb-6">{products.length} items available</p>
-
       <ProductGrid products={products} market={market} isAuthenticated={!!session} />
 
       <div className={`mt-8 rounded-lg border px-4 py-3 text-xs font-medium ${
