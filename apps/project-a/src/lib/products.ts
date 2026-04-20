@@ -83,6 +83,20 @@ export function shuffleFirst(products: Product[]): Product[] {
 }
 
 export async function fetchProductBySlug(market: Market, slug: string): Promise<Product | null> {
-  const all = await fetchProducts(market);
-  return all.find((p) => p.slug === slug) ?? null;
+  // Search initial page first
+  const initial = await fetchProducts(market);
+  const found = initial.find((p) => p.slug === slug);
+  if (found) return found;
+
+  // Search across all available products (paginated pages may have the product)
+  const baseSkip = MARKET_SKIP[market];
+  for (let page = 1; page <= 5; page++) {
+    const skip = baseSkip + page * PRODUCTS_LIMIT;
+    const products = await fetchProductsRaw(skip, PRODUCTS_LIMIT);
+    if (products.length === 0) break;
+    const match = products.find((p) => p.slug === slug);
+    if (match) return match;
+  }
+
+  return null;
 }
