@@ -1,0 +1,54 @@
+export type BrandId = 'project-a' | 'project-b';
+
+export type ProductCardLayout = 'vertical' | 'horizontal';
+export type MenuPosition = 'top' | 'side' | 'bottom';
+
+export interface GridConfig {
+  minCardWidth: string;
+  gap: string;
+}
+
+export interface ProductCardConfig {
+  layout: ProductCardLayout;
+  titlePosition: 'top-right' | 'bottom-left';
+  showCategoryTag: boolean;
+  buttonVariant: 'green' | 'red';
+  addToCartMessage: string;
+  grid: GridConfig;
+}
+
+export interface BrandTheme {
+  primaryColor: string;
+  fontFamily: string;
+  menuPosition: MenuPosition;
+}
+
+export type ProductDetailLayout = 'side-by-side' | 'stacked';
+
+export interface ProductDetailConfig {
+  layout: ProductDetailLayout;
+  showCategoryTag: boolean;
+  showBrandTag: boolean;
+  memberSectionStyle: 'list' | 'cards';
+}
+
+export type CartLayout = 'list' | 'compact';
+
+export interface CartConfig {
+  layout: CartLayout;
+  checkoutLabel: string;
+}
+
+export interface FeatureFlags {
+  cartMarketSeparation: boolean;
+}
+
+export interface BrandConfig {
+  id: BrandId;
+  displayName: string;
+  theme: BrandTheme;
+  productCard: ProductCardConfig;
+  productDetail: ProductDetailConfig;
+  cart: CartConfig;
+  featureFlags: FeatureFlags;
+}

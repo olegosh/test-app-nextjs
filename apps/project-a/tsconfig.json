@@ -1,0 +1,8 @@
+{
+  "extends": "@product-portal/config/tsconfig/nextjs",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
