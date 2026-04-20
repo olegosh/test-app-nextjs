@@ -37,6 +37,10 @@ export function ProductGrid({ products: initialProducts, market, isAuthenticated
 
     try {
       const res = await fetch(`/api/products?market=${market}&page=${page}`);
+      if (!res.ok) {
+        setHasMore(false);
+        return;
+      }
       const data = await res.json();
 
       if (data.products.length === 0) {
