@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Product } from '@product-portal/types';
@@ -18,6 +19,10 @@ interface ProductDetailProps {
 
 export function ProductDetail({ product, market, isAuthenticated, userMarket, isAdmin }: ProductDetailProps) {
   const { productDetail: cfg, theme } = useBrand();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [product.id]);
 
   // Market mismatch: user is authenticated but viewing another market's product
   const hasMarketMismatch = isAuthenticated && !isAdmin && userMarket != null && userMarket !== market;
