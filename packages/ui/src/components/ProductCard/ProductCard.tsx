@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Product } from '@product-portal/types';
@@ -19,6 +20,13 @@ interface ProductCardProps {
 export function ProductCard({ product, market, isAuthenticated, onRequestAuth }: ProductCardProps) {
   const { productCard: cfg, id: brandId } = useBrand();
   const { addItem, getItemQuantity } = useCart();
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  // Fallback: hide skeleton after 3s even if onLoad doesn't fire
+  useEffect(() => {
+    const timer = setTimeout(() => setImageLoaded(true), 3000);
+    return () => clearTimeout(timer);
+  }, [product.id]);
 
   const quantityInCart = getItemQuantity(product.id);
 
@@ -69,7 +77,10 @@ export function ProductCard({ product, market, isAuthenticated, onRequestAuth }:
   );
 
   const addToCartButton = (
-    <Button label={quantityInCart > 0 ? `Add (${quantityInCart})` : 'Add to Cart'} onClick={handleAddToCart} />
+    <Button
+      label={quantityInCart > 0 ? `Add (${quantityInCart})` : 'Add to Cart'}
+      onClick={handleAddToCart}
+    />
   );
 
   const actionBlock = (
@@ -82,13 +93,42 @@ export function ProductCard({ product, market, isAuthenticated, onRequestAuth }:
   if (cfg.layout === 'vertical') {
     return (
       <article className="flex flex-col rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden h-full hover:shadow-md transition-shadow duration-200">
-        <div style={{ position: 'relative', width: '100%', height: '200px', backgroundColor: '#f9fafb' }}>
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '200px',
+            backgroundColor: '#f9fafb',
+          }}
+        >
+          {!imageLoaded && (
+            <div className="absolute inset-0 animate-pulse bg-gray-200 flex items-center justify-center">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#f9fafb"
+                strokeWidth="1.5"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <path d="M21 15l-5-5L5 21" />
+              </svg>
+            </div>
+          )}
           <Image
             src={product.thumbnail}
             alt={product.title}
             fill
-            style={{ objectFit: 'contain', padding: '8px' }}
+            style={{
+              objectFit: 'contain',
+              padding: '8px',
+              opacity: imageLoaded ? 1 : 0,
+              transition: 'opacity 0.3s',
+            }}
             sizes="(max-width: 768px) 100vw, 33vw"
+            onLoad={() => setImageLoaded(true)}
           />
         </div>
         <div className="flex flex-1 flex-col p-4">
@@ -108,13 +148,38 @@ export function ProductCard({ product, market, isAuthenticated, onRequestAuth }:
 
   return (
     <article className="flex flex-row rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200 h-full">
-      <div style={{ position: 'relative', width: '160px', minHeight: '160px', flexShrink: 0 }}>
+      <div
+        style={{
+          position: 'relative',
+          width: '160px',
+          minHeight: '160px',
+          flexShrink: 0,
+          backgroundColor: '#f3f4f6',
+        }}
+      >
+        {!imageLoaded && (
+          <div className="absolute inset-0 animate-pulse bg-gray-200 flex items-center justify-center">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#f3f4f6"
+              strokeWidth="1.5"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="M21 15l-5-5L5 21" />
+            </svg>
+          </div>
+        )}
         <Image
           src={product.thumbnail}
           alt={product.title}
           fill
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: 'cover', opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
           sizes="160px"
+          onLoad={() => setImageLoaded(true)}
         />
       </div>
       <div className="flex flex-1 flex-col p-4">
