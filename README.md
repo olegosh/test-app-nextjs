@@ -2,6 +2,13 @@
 
 A scalable, multi-brand product portal monorepo built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, and Turborepo. Demonstrates DRY architecture, config-driven brand customization, SSR/ISG/PPR, JWT auth, cart with feature flags, and a shared component library.
 
+### Live Demo
+
+| App | URL |
+|-----|-----|
+| ProjectA | [product-portal-a.vercel.app](https://product-portal-a.vercel.app/) |
+| ProjectB | [product-portal-b.vercel.app](https://product-portal-b.vercel.app/) |
+
 ## Project Structure
 
 ```

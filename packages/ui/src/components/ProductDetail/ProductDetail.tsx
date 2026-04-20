@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Product } from '@product-portal/types';
@@ -17,15 +17,26 @@ interface ProductDetailProps {
   isAdmin?: boolean | undefined;
 }
 
-export function ProductDetail({ product, market, isAuthenticated, userMarket, isAdmin }: ProductDetailProps) {
+export function ProductDetail({
+  product,
+  market,
+  isAuthenticated,
+  userMarket,
+  isAdmin,
+}: ProductDetailProps) {
   const { productDetail: cfg, theme } = useBrand();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
+    setImageLoaded(false);
     window.scrollTo(0, 0);
+    const timer = setTimeout(() => setImageLoaded(true), 3000);
+    return () => clearTimeout(timer);
   }, [product.id]);
 
   // Market mismatch: user is authenticated but viewing another market's product
-  const hasMarketMismatch = isAuthenticated && !isAdmin && userMarket != null && userMarket !== market;
+  const hasMarketMismatch =
+    isAuthenticated && !isAdmin && userMarket != null && userMarket !== market;
 
   if (hasMarketMismatch) {
     return (
@@ -36,7 +47,8 @@ export function ProductDetail({ product, market, isAuthenticated, userMarket, is
           </div>
           <h1 className="text-lg font-semibold text-gray-900 mb-2">Market Restricted</h1>
           <p className="text-sm text-gray-500 mb-6">
-            This product belongs to the {market.toUpperCase()} market. Please sign in with {market.toUpperCase()} market credentials to view this product&apos;s details.
+            This product belongs to the {market.toUpperCase()} market. Please sign in with{' '}
+            {market.toUpperCase()} market credentials to view this product&apos;s details.
           </p>
           <div className="flex gap-3 justify-center">
             <Link
@@ -62,7 +74,20 @@ export function ProductDetail({ product, market, isAuthenticated, userMarket, is
       href={routes.products(market)}
       className="text-sm text-gray-500 hover:underline mb-6 inline-block"
     >
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline -mt-0.5"><path d="M10 4l-4 4 4 4" /></svg> Back to Products
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="inline -mt-0.5"
+      >
+        <path d="M10 4l-4 4 4 4" />
+      </svg>{' '}
+      Back to Products
     </Link>
   );
 
@@ -128,15 +153,44 @@ export function ProductDetail({ product, market, isAuthenticated, userMarket, is
       <main className="max-w-4xl mx-auto px-6 py-8">
         {backLink}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div style={{ position: 'relative', width: '100%', aspectRatio: '1' }}>
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              aspectRatio: '1',
+              backgroundColor: '#f3f4f6',
+            }}
+            className="rounded-lg overflow-hidden"
+          >
+            {!imageLoaded && (
+              <div className="absolute inset-0 animate-pulse bg-gray-200 flex items-center justify-center">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#f3f4f6"
+                  strokeWidth="1.5"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" />
+                </svg>
+              </div>
+            )}
             <Image
               src={product.thumbnail}
               alt={product.title}
               fill
-              style={{ objectFit: 'cover' }}
+              style={{
+                objectFit: 'cover',
+                opacity: imageLoaded ? 1 : 0,
+                transition: 'opacity 0.3s',
+              }}
               className="rounded-lg"
               sizes="(max-width: 768px) 100vw, 50vw"
               priority
+              onLoad={() => setImageLoaded(true)}
             />
           </div>
           <div className="flex flex-col gap-4">
@@ -156,16 +210,33 @@ export function ProductDetail({ product, market, isAuthenticated, userMarket, is
     <main className="max-w-3xl mx-auto px-6 py-8">
       {backLink}
       <div
-        style={{ position: 'relative', width: '100%', height: '360px' }}
+        style={{ position: 'relative', width: '100%', height: '360px', backgroundColor: '#f3f4f6' }}
         className="rounded-xl overflow-hidden mb-6"
       >
+        {!imageLoaded && (
+          <div className="absolute inset-0 animate-pulse bg-gray-200 flex items-center justify-center">
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#f3f4f6"
+              strokeWidth="1.5"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="M21 15l-5-5L5 21" />
+            </svg>
+          </div>
+        )}
         <Image
           src={product.thumbnail}
           alt={product.title}
           fill
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: 'contain', padding: '12px', opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
           sizes="(max-width: 768px) 100vw, 720px"
           priority
+          onLoad={() => setImageLoaded(true)}
         />
       </div>
       <div className="mb-4">{tags}</div>
