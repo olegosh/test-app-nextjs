@@ -130,7 +130,7 @@ Product grid uses CSS `repeat(auto-fill, minmax(minCardWidth, 1fr))` driven by t
 ### Authentication
 
 - **JWT** via `jose` (Web Standards-compatible, works in Next.js 16 proxy)
-- **HttpOnly cookie** (`pp_session`) — set via Server Actions
+- **HttpOnly cookie** — unique per app (`pp_session_a`, `pp_session_b`) to prevent cross-app conflicts on the same domain. Set via Server Actions.
 - **Proxy** (`src/proxy.ts`) — validates JWT on protected routes, enforces admin role for `/admin`
 - **Market restriction** — Product detail pages show a "Market Restricted" notice when a user accesses another market's product (admin bypasses)
 - **SEO** — Products page sets `robots: index` for public visitors, `robots: noindex` for authenticated users

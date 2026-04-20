@@ -4,9 +4,8 @@ import { cookies } from 'next/headers';
 import type { Metadata } from 'next';
 import { isValidMarket } from '@product-portal/constants';
 import type { Market } from '@product-portal/constants';
-import { SESSION_COOKIE_NAME } from '@product-portal/constants';
 import { ProductDetail } from '@product-portal/ui';
-import { verifySession } from '../../../../lib/auth';
+import { verifySession, SESSION_COOKIE_NAME } from '../../../../lib/auth';
 import { fetchProductBySlug } from '../../../../lib/products';
 
 interface Props {

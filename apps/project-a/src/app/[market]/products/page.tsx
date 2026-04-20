@@ -4,8 +4,7 @@ import { cookies } from 'next/headers';
 import type { Metadata } from 'next';
 import { isValidMarket } from '@product-portal/constants';
 import type { Market } from '@product-portal/constants';
-import { SESSION_COOKIE_NAME } from '@product-portal/constants';
-import { verifySession } from '../../../lib/auth';
+import { verifySession, SESSION_COOKIE_NAME } from '../../../lib/auth';
 import { fetchProducts, shuffleFirst } from '../../../lib/products';
 import { ProductGrid, ScrollToTop } from '@product-portal/ui';
 

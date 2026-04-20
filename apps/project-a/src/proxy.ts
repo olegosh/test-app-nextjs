@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
 
-const SESSION_COOKIE = 'pp_session';
+const SESSION_COOKIE = 'pp_session_a';
 const PROTECTED_SEGMENTS = ['product', 'admin'];
 const ADMIN_SEGMENTS = ['admin'];
 
