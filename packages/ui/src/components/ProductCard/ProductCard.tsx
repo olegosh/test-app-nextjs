@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Product } from '@product-portal/types';
@@ -20,13 +19,6 @@ interface ProductCardProps {
 export function ProductCard({ product, market, isAuthenticated, onRequestAuth }: ProductCardProps) {
   const { productCard: cfg, id: brandId } = useBrand();
   const { addItem, getItemQuantity } = useCart();
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  // Fallback: hide skeleton after 0.5s even if onLoad doesn't fire
-  useEffect(() => {
-    const timer = setTimeout(() => setImageLoaded(true), 500);
-    return () => clearTimeout(timer);
-  }, [product.id]);
 
   const quantityInCart = getItemQuantity(product.id);
 
@@ -101,22 +93,6 @@ export function ProductCard({ product, market, isAuthenticated, onRequestAuth }:
             backgroundColor: '#f9fafb',
           }}
         >
-          {!imageLoaded && (
-            <div className="absolute inset-0 animate-pulse bg-gray-200 flex items-center justify-center">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#f9fafb"
-                strokeWidth="1.5"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <circle cx="8.5" cy="8.5" r="1.5" />
-                <path d="M21 15l-5-5L5 21" />
-              </svg>
-            </div>
-          )}
           <Image
             src={product.thumbnail}
             alt={product.title}
@@ -124,11 +100,8 @@ export function ProductCard({ product, market, isAuthenticated, onRequestAuth }:
             style={{
               objectFit: 'contain',
               padding: '8px',
-              opacity: imageLoaded ? 1 : 0,
-              transition: 'opacity 0.3s',
             }}
             sizes="(max-width: 768px) 100vw, 33vw"
-            onLoad={() => setImageLoaded(true)}
           />
         </div>
         <div className="flex flex-1 flex-col p-4">
@@ -157,29 +130,12 @@ export function ProductCard({ product, market, isAuthenticated, onRequestAuth }:
           backgroundColor: '#f3f4f6',
         }}
       >
-        {!imageLoaded && (
-          <div className="absolute inset-0 animate-pulse bg-gray-200 flex items-center justify-center">
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#f3f4f6"
-              strokeWidth="1.5"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <path d="M21 15l-5-5L5 21" />
-            </svg>
-          </div>
-        )}
         <Image
           src={product.thumbnail}
           alt={product.title}
           fill
-          style={{ objectFit: 'cover', opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+          style={{ objectFit: 'cover' }}
           sizes="160px"
-          onLoad={() => setImageLoaded(true)}
         />
       </div>
       <div className="flex flex-1 flex-col p-4">
