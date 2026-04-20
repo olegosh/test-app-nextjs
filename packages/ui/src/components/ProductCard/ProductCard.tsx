@@ -22,9 +22,9 @@ export function ProductCard({ product, market, isAuthenticated, onRequestAuth }:
   const { addItem, getItemQuantity } = useCart();
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  // Fallback: hide skeleton after 3s even if onLoad doesn't fire
+  // Fallback: hide skeleton after 0.5s even if onLoad doesn't fire
   useEffect(() => {
-    const timer = setTimeout(() => setImageLoaded(true), 3000);
+    const timer = setTimeout(() => setImageLoaded(true), 500);
     return () => clearTimeout(timer);
   }, [product.id]);
 
