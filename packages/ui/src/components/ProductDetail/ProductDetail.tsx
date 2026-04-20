@@ -30,7 +30,7 @@ export function ProductDetail({
   useEffect(() => {
     setImageLoaded(false);
     window.scrollTo(0, 0);
-    const timer = setTimeout(() => setImageLoaded(true), 3000);
+    const timer = setTimeout(() => setImageLoaded(true), 500);
     return () => clearTimeout(timer);
   }, [product.id]);
 
@@ -233,7 +233,12 @@ export function ProductDetail({
           src={product.thumbnail}
           alt={product.title}
           fill
-          style={{ objectFit: 'contain', padding: '12px', opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+          style={{
+            objectFit: 'contain',
+            padding: '12px',
+            opacity: imageLoaded ? 1 : 0,
+            transition: 'opacity 0.3s',
+          }}
           sizes="(max-width: 768px) 100vw, 720px"
           priority
           onLoad={() => setImageLoaded(true)}
