@@ -68,6 +68,9 @@ All commands support per-brand execution via `:a` / `:b` suffixes.
 | `/[market]/products` | Public | Product list with infinite scroll (ISG + cache) |
 | `/[market]/product/[slug]` | Auth required | Product detail with reviews (SSR) |
 | `/[market]/cart` | Public | Shopping cart |
+| `/[market]/checkout` | Public | Shipping details form with autofill |
+| `/[market]/payment` | Public | Payment method selection with demo card |
+| `/[market]/confirmation` | Public | Order confirmation with order ID |
 | `/[market]/admin` | Admin only | PPR dashboard with cached data sections |
 
 Markets: `/en` (English) and `/ca` (Canadian) — each serves different products.
@@ -155,7 +158,10 @@ All UI components live in `packages/ui/` and are consumed by both apps via the `
 | `ProductCard` | Config-driven card (vertical/horizontal layout, auto-fill grid) |
 | `ProductGrid` | Responsive grid with infinite scroll and auth modal |
 | `ProductDetail` | Config-driven detail page (side-by-side/stacked) with market restriction |
-| `CartPage` | Full cart with quantity controls, totals, checkout |
+| `CartPage` | Full cart with quantity controls, totals, proceed to checkout |
+| `CheckoutPage` | Shipping details form with demo autofill, order comment |
+| `PaymentPage` | Payment method selection (card/PayPal/Apple Pay) with demo card autofill |
+| `ConfirmationPage` | Order confirmation with ID, next steps, continue shopping |
 | `LoginForm` | Auth form with demo credentials table loaded from JSON |
 | `MarketSelector` | Custom dropdown with inline SVG flag icons, auto-disabled on detail pages |
 | `AuthModal` | Native `<dialog>` for unauthenticated product detail access |

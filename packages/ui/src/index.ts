@@ -13,4 +13,7 @@ export { LoginForm } from './components/LoginForm';
 export { AuthModal } from './components/AuthModal';
 export { ScrollToTop } from './components/ScrollToTop';
 export { ReviewsSection } from './components/ReviewsSection';
+export { CheckoutPage } from './components/CheckoutPage';
+export { PaymentPage } from './components/PaymentPage';
+export { ConfirmationPage } from './components/ConfirmationPage';
 export { UsersTable, RecentPosts, QuotesWidget, LiveTodos } from './components/admin';

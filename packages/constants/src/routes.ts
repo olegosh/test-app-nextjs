@@ -11,5 +11,8 @@ export const routes = {
   products: (market: Market) => `/${market}/products`,
   product: (market: Market, slug: string) => `/${market}/product/${slug}`,
   cart: (market: Market) => `/${market}/cart`,
+  checkout: (market: Market) => `/${market}/checkout`,
+  payment: (market: Market) => `/${market}/payment`,
+  confirmation: (market: Market) => `/${market}/confirmation`,
   admin: (market: Market) => `/${market}/admin`,
 } as const;

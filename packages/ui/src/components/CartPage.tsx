@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import type { Market } from '@product-portal/constants';
 import { routes } from '@product-portal/constants';
 import { useBrand } from '../context/BrandContext';
@@ -16,6 +17,7 @@ interface CartPageProps {
 export function CartPage({ market, userMarket, isAdmin }: CartPageProps) {
   const { cart: cfg, theme, featureFlags } = useBrand();
   const { state, removeItem, updateQuantity, clearCart } = useCart();
+  const router = useRouter();
 
   // When cartMarketSeparation is enabled, filter items to user's market (admin sees all)
   const visibleItems =
@@ -32,6 +34,7 @@ export function CartPage({ market, userMarket, isAdmin }: CartPageProps) {
       totalItems,
       totalPrice: totalPrice.toFixed(2),
     });
+    router.push(routes.checkout(market));
   }
 
   if (visibleItems.length === 0) {
