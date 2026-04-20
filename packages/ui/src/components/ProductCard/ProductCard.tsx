@@ -82,12 +82,12 @@ export function ProductCard({ product, market, isAuthenticated, onRequestAuth }:
   if (cfg.layout === 'vertical') {
     return (
       <article className="flex flex-col rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden h-full hover:shadow-md transition-shadow duration-200">
-        <div style={{ position: 'relative', width: '100%', height: '200px' }}>
+        <div style={{ position: 'relative', width: '100%', height: '200px', backgroundColor: '#f9fafb' }}>
           <Image
             src={product.thumbnail}
             alt={product.title}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: 'contain', padding: '8px' }}
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>
